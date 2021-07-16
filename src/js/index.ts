@@ -1,5 +1,3 @@
-import '../images/player/idle.png';
-import '../images/player/button.png';
 import '../images/buttons/button_small.png';
 import '../images/buttons/button_click_small.png';
 import '../images/buttons/button_round.png';
