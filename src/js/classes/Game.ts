@@ -19,6 +19,8 @@ export default class Game extends PIXI.Container {
   public cellWidth: number;
   public cellHeight: number;
 
+  private mode: 'game' | 'gameover';
+
   constructor(
     engine: Engine,
   ) {
@@ -26,6 +28,8 @@ export default class Game extends PIXI.Container {
 
     this.engine = engine;
     this.engine.app.ticker.add(this.tick.bind(this));
+
+    this.mode = 'game';
 
     this.x = 0;
     this.y = 0;
@@ -74,24 +78,16 @@ export default class Game extends PIXI.Container {
   }
 
   public startNewGame () {
+    this.mode = 'game';
+    this.apple.visible = true;
     this.updateScore(0);
     this.player.startNewGame();
   }
 
   public gameOver () {
+    this.mode = 'gameover';
+    this.apple.visible = false;
     this.player.gameOver();
-  }
-
-  checkCollision () {
-    const a: any = [];
-    this.player.tail.children.forEach((el) => {
-      // console.log(el)
-      a.push([el.x, el.y]);
-    });
-
-    // console.log('a', a);
-    
-    return false;
   }
 
   tick (delta: number) {
@@ -103,27 +99,27 @@ export default class Game extends PIXI.Container {
     if (this.engine.time - this.time > (1 / 1000 * this.gameSpeed)) {
       this.time += (1 / 1000 * this.gameSpeed);
 
-      this.player.draw();
-      this.apple.draw();
-      this.scoreText.text = this.score.toString();
+      if (this.mode === 'game') {
+        this.player.draw();
+        this.apple.draw();
+        this.scoreText.text = this.score.toString();
 
-      if (this.player.XX === this.apple.XX && this.player.YY === this.apple.YY) {
-        this.updateScore();
-        this.apple.setNewCoords();
-        this.player.addTail();
+
+
+        if (this.player.XX === this.apple.XX && this.player.YY === this.apple.YY) {
+          this.updateScore();
+          this.apple.setNewCoords();
+          this.player.addTail();
+        } else if (
+          this.player.tailCoords.some((el) => (
+            this.player.XX === el[0] && this.player.YY === el[1]
+          ))
+          && this.player.tailCoords.length >= 3
+        ){
+          // @ts-ignore
+          this.engine.scenes.active.gameOver && this.engine.scenes.active.gameOver();
+        }
       }
-
-      // console.log('this.checkCollision() :>> ', this.checkCollision());
-
-      // if (
-        
-      //   this.player.tail.children.some((el) => (
-      //     this.player['nose'].x === el.x && this.player['nose'].x === el.y
-      //   ))
-      
-      // ){
-      //   console.log(12312312);
-      // }
     }
   }
 };

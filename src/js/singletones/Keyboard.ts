@@ -18,10 +18,16 @@ const keys = {
 class Keyboard {
   private keys: Keys;
   public pressedKeys: Set<unknown>;
+  public deviceOrientation: { [key: string]:number }
 
   constructor () {
     this.keys = keys;
     this.pressedKeys = new Set();
+    this.deviceOrientation = {
+      alpha: 0,
+      gamma: 0,
+      beta: 0,
+    }
 
     window.addEventListener("keydown", (e: KeyboardEvent) => {
       this.keys[e.key] && this.pressedKeys.add(this.keys[e.key]);
@@ -32,7 +38,19 @@ class Keyboard {
       this.keys[e.key] && this.pressedKeys.delete(this.keys[e.key])
       this.updateController();
     });
+
+    // if (window.DeviceOrientationEvent) {
+    //   window.addEventListener("deviceorientation", (event) => {
+    //     this.deviceOrientation.alpha = event.alpha;
+    //     this.deviceOrientation.gamma = event.gamma;
+    //     this.deviceOrientation.beta = event.beta;
+
+    //     Controller.updateOrientation(this.deviceOrientation);
+    //   }, true);
+    // }
+
   }
+
 
   updateController () {
     let payload = {} as { [key: string]: boolean }

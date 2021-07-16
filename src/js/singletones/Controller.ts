@@ -11,7 +11,9 @@ export interface IController {
   cameraRight: boolean;
   cameraUp: boolean;
   cameraDown: boolean;
+  orientation: {[key: string]: number};
 
+  updateOrientation: (orientation: any) => void;
   update: (props: {[key: string]: boolean}) => void;
 }
 
@@ -27,6 +29,16 @@ const Controller: IController = {
   cameraRight: false,
   cameraUp: false,
   cameraDown: false,
+
+  orientation: {
+    alpha: 0,
+    gamma: 0,
+    beta: 0,
+  },
+
+  updateOrientation: (orientation) => {
+    Controller.orientation = orientation;
+  },
 
   update: (props: any) => {
     if (props.up !== undefined) Controller.up = props.up;

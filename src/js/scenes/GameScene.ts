@@ -10,11 +10,14 @@ export default class GameScene extends Scene {
   private game: Game;
   private score: PIXI.Text;
 
+  private restartBtn: Button;
   private backBtn: Button;
   private leftBtn: Button;
   private rightBtn: Button;
   private upBtn: Button;
   private downBtn: Button;
+
+  public gameOVer: () => void;
 
   constructor (engine: any) {
     super();
@@ -38,6 +41,20 @@ export default class GameScene extends Scene {
       callbackOnKeyUp: true,
     });
     this.addChild(this.backBtn);
+
+    this.restartBtn = new Button({
+      texture: this.app.loader.resources['button_small'].texture,
+      textureClick: this.app.loader.resources['button_click_small'].texture,
+      x: this.app.screen.width / 2,
+      y: 455,
+      width: 400,
+      height: 200,
+      onClick: () => this.start(),
+      text: 'Рестарт',
+      callbackOnKeyUp: true,
+    });
+    this.restartBtn.visible = false;
+    this.addChild(this.restartBtn);
 
     this.leftBtn = new Button({
       texture: this.app.loader.resources['button_round'].texture,
@@ -90,8 +107,13 @@ export default class GameScene extends Scene {
   }
 
   public start(): void {
+    this.restartBtn.visible = false;
+    this.backBtn.visible = true;
+    this.leftBtn.visible = true;
+    this.rightBtn.visible = true;
+    this.upBtn.visible = true;
+    this.downBtn.visible = true;
     this.game.startNewGame();
-    console.log('srtart')
   }
 
   public stop(): void {
@@ -99,9 +121,19 @@ export default class GameScene extends Scene {
   }
 
   public back() {
-    this.game.gameOver();
+    this.gameOver();
     this.scenes.start('mainMenu');
+  }
+
+  public gameOver() {
+    this.restartBtn.visible = true;
+    this.backBtn.visible = false;
+    this.leftBtn.visible = false;
+    this.rightBtn.visible = false;
+    this.upBtn.visible = false;
+    this.downBtn.visible = false;
     
+    this.game.gameOver();
   }
 
   public update(delta: number): void {

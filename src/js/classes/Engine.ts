@@ -64,15 +64,17 @@ export default class Engine {
 
 
     // shader
-    // this.shaderCode = this.app.loader.resources["shader"].data;
-    // const container = new PIXI.Container();
-    // container.filterArea = new PIXI.Rectangle(0, 0, this.app.screen.width, this.app.screen.height);
-    // this.app.stage.addChild(container);
-    // this.filter = new PIXI.Filter(null, this.shaderCode, {
-    //   mouse: new PIXI.Point(),
-    //   time: this.time,
-    // });
-    // container.filters = [this.filter];
+    this.shaderCode = this.app.loader.resources["shader"].data;
+    const container = new PIXI.Container();
+    container.filterArea = new PIXI.Rectangle(0, 0, this.app.screen.width, this.app.screen.height);
+    this.app.stage.addChild(container);
+    this.filter = new PIXI.Filter(null, this.shaderCode, {
+      mouse: new PIXI.Point(),
+      time: this.time,
+    });
+    container.filters = [this.filter];
+
+    container.zIndex = 100;
 
   }
 
@@ -81,8 +83,8 @@ export default class Engine {
     this.time += delta / 60;
 
     // shader
-    // this.filter.uniforms.mouse.copyFrom(this.app.renderer.plugins.interaction.mouse.global);
-    // this.filter.uniforms.time = this.time;
+    this.filter.uniforms.mouse.copyFrom(this.app.renderer.plugins.interaction.mouse.global);
+    this.filter.uniforms.time = this.time;
 
 
     this.log.innerHTML = `
@@ -92,6 +94,7 @@ export default class Engine {
       ${this.controller.right ? 'right' : ''}
       ${this.controller.jump ? 'jump' : ''}
       ${this.controller.restart ? 'restart' : ''}
+      ${this.controller.orientation ? `${this.controller.orientation.alpha}` : ''}
     `;
   }
 };

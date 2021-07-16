@@ -37,26 +37,10 @@ export default class Player extends PIXI.Container {
     this.nose.drawRect(this.x, this.y, this.game.cellWidth, this.game.cellHeight);
     this.nose.endFill();
     this.addChild(this.nose);
-
-    console.log('player', this);
-
   };
 
   public draw() {
     if (this.tail.children.length < 3) this.addTail();
-
-    // for (let i = this.tail.children.length - 1; i >= 0; i--) {
-    //   const tailItem = this.tail.children[i];
-
-    //   if (i - 1 >= 0) {
-    //     tailItem.x = this.tail.children[i - 1].x;
-    //     tailItem.y = this.tail.children[i - 1].y;
-    //   } else {
-    //     tailItem.x = this.XX * this.game.cellWidth;
-    //     tailItem.y = this.YY * this.game.cellWidth;
-    //   }
-    //   tailItem.visible = true;
-    // }
 
     for (let i = this.tailCoords.length - 1; i >= 0; i--) {
       const tailCoordsItem = this.tailCoords[i];
@@ -109,6 +93,7 @@ export default class Player extends PIXI.Container {
     this.YY = 0;
     this.x = 0;
     this.y = 0;
+    this.tailCoords.length = 0;
     this.setDirection('');
   }
 
