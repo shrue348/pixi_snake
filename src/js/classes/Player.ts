@@ -94,6 +94,7 @@ export default class Player extends PIXI.Container {
   public startNewGame() {
     this.visible = true;
     this.XX = 0;
+    this.YY = 0;
     this.setDirection('right');
   }
 };

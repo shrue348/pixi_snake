@@ -90,3 +90,5 @@ bower_components
 npm-debug.log
 *.log
 dist/index.html
+public/
+.vscode
