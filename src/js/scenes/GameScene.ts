@@ -33,7 +33,7 @@ export default class GameScene extends Scene {
       width: 400,
       height: 200,
       scale: .4,
-      onClick: () => this.scenes.start('mainMenu'),
+      onClick: () => this.back(),
       text: 'Назад',
       callbackOnKeyUp: true,
     });
@@ -91,10 +91,17 @@ export default class GameScene extends Scene {
 
   public start(): void {
     this.game.startNewGame();
+    console.log('srtart')
   }
 
   public stop(): void {
 
+  }
+
+  public back() {
+    this.game.gameOver();
+    this.scenes.start('mainMenu');
+    
   }
 
   public update(delta: number): void {

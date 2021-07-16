@@ -38,12 +38,11 @@ export default class Game extends PIXI.Container {
 
     this.addChild(this.view);
 
-    const graphics = new PIXI.Graphics();
-    // Rectangle
-    graphics.beginFill(0x0b3338);
-    graphics.drawRect(0, 0, this.engine.app.screen.width, this.engine.app.screen.width);
-    graphics.endFill();
-    this.view.addChild(graphics);
+    const background = new PIXI.Graphics();
+    background.beginFill(0x0b3338);
+    background.drawRect(0, 0, this.engine.app.screen.width, this.engine.app.screen.width);
+    background.endFill();
+    this.view.addChild(background);
 
     this.scoreText = new PIXI.Text('0', {
       fill: '#fff',
@@ -65,7 +64,6 @@ export default class Game extends PIXI.Container {
 
     this.view.addChild(this.apple);
     this.view.addChild(this.player);
-
   };
 
   private updateScore (score?: number) {
@@ -78,7 +76,22 @@ export default class Game extends PIXI.Container {
   public startNewGame () {
     this.updateScore(0);
     this.player.startNewGame();
+  }
 
+  public gameOver () {
+    this.player.gameOver();
+  }
+
+  checkCollision () {
+    const a: any = [];
+    this.player.tail.children.forEach((el) => {
+      // console.log(el)
+      a.push([el.x, el.y]);
+    });
+
+    // console.log('a', a);
+    
+    return false;
   }
 
   tick (delta: number) {
@@ -94,12 +107,23 @@ export default class Game extends PIXI.Container {
       this.apple.draw();
       this.scoreText.text = this.score.toString();
 
-      if (this.player['nose'].x === this.apple.x && this.player['nose'].y === this.apple.y) {
+      if (this.player.XX === this.apple.XX && this.player.YY === this.apple.YY) {
         this.updateScore();
         this.apple.setNewCoords();
-
         this.player.addTail();
       }
+
+      // console.log('this.checkCollision() :>> ', this.checkCollision());
+
+      // if (
+        
+      //   this.player.tail.children.some((el) => (
+      //     this.player['nose'].x === el.x && this.player['nose'].x === el.y
+      //   ))
+      
+      // ){
+      //   console.log(12312312);
+      // }
     }
   }
 };

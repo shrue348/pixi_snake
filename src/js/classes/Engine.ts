@@ -25,7 +25,7 @@ export default class Engine {
   constructor() {
     this.app = new PIXI.Application({
       width: 1080,
-      height: 1680,
+      height: 1645,
       backgroundColor: 0x37474f,
       antialias: true,
     });
