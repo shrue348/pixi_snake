@@ -12,7 +12,7 @@ export default class Game extends PIXI.Container {
   
   private gameSpeed: number;
   private time: number;
-  private score: number;
+  public score: number;
   private scoreText: PIXI.Text;
 
   public cellCount: number;
@@ -57,7 +57,7 @@ export default class Game extends PIXI.Container {
     this.cellCount = 23;
     this.cellWidth = this.engine.app.screen.width / this.cellCount;
     this.cellHeight = this.engine.app.screen.width / this.cellCount;
-    this.gameSpeed = 100;
+    this.gameSpeed = 200;
     this.time = fastFloor(this.engine.time);
 
     this.apple = new Apple(this);
@@ -77,8 +77,8 @@ export default class Game extends PIXI.Container {
 
   public startNewGame () {
     this.updateScore(0);
-    this.player.XX = 0;
-    this.player.setDirection('right');
+    this.player.startNewGame();
+
   }
 
   tick (delta: number) {
@@ -94,9 +94,11 @@ export default class Game extends PIXI.Container {
       this.apple.draw();
       this.scoreText.text = this.score.toString();
 
-      if (this.player.x === this.apple.x && this.player.y === this.apple.y) {
+      if (this.player['nose'].x === this.apple.x && this.player['nose'].y === this.apple.y) {
         this.updateScore();
         this.apple.setNewCoords();
+
+        this.player.addTail();
       }
     }
   }
