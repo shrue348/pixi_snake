@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 import { randomInt } from '../helper/helper';
 import Game from './Game';
 
-export default class Player extends PIXI.Container {
+export default class Apple extends PIXI.Container {
   private game: Game;
   public XX: number;
   public YY: number;

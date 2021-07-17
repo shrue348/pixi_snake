@@ -50,18 +50,18 @@ export default class Game extends PIXI.Container {
 
     this.scoreText = new PIXI.Text('0', {
       fill: '#fff',
-      fontSize: 72,
+      fontSize: 82,
     });
-    this.scoreText.x = 40;
-    this.scoreText.y = 55;
-    this.scoreText.anchor.set(0.5);
+    this.scoreText.x = 10;
+    this.scoreText.y = 10;
+    // this.scoreText.anchor.set(0.5);
     this.addChild(this.scoreText);
 
     this.cellCount = 23;
     this.cellWidth = this.engine.app.screen.width / this.cellCount;
     this.cellHeight = this.engine.app.screen.width / this.cellCount;
-    this.gameSpeed = 200;
-    this.time = fastFloor(this.engine.time);
+    this.gameSpeed = 100;
+    this.time = this.engine.time;
 
     this.apple = new Apple(this);
     this.player = new Player(this);
@@ -103,7 +103,6 @@ export default class Game extends PIXI.Container {
         this.player.draw();
         this.apple.draw();
         this.scoreText.text = this.score.toString();
-
 
 
         if (this.player.XX === this.apple.XX && this.player.YY === this.apple.YY) {

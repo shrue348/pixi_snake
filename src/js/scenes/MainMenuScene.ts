@@ -14,7 +14,7 @@ export default class MainMenuScene extends Scene {
   }
 
   public init(): void {
-    this.header = new PIXI.Text('Игра', {
+    this.header = new PIXI.Text('PIXI Snake', {
       fill: '#fff',
       fontSize: 96,
     });

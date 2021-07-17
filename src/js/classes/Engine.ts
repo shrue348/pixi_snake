@@ -35,6 +35,10 @@ export default class Engine {
     this.log = document.querySelector('p');
     this.time = 0;
 
+    this.state = State;
+    this.keyboard = Keyboard;
+    this.controller = Controller;
+
     this.app.loader
       .add('button_small', '../images/button_small.png')
       .add('button_round', '../images/button_round.png')
@@ -55,9 +59,6 @@ export default class Engine {
   }
 
   afterLoad(): void {
-    this.state = State;
-    this.keyboard = Keyboard;
-    this.controller = Controller;
     this.addScenes();
     // this.app.ticker.speed = 2;
     this.app.ticker.add(this.tick.bind(this));
@@ -74,8 +75,6 @@ export default class Engine {
     });
     container.filters = [this.filter];
 
-    container.zIndex = 100;
-
   }
 
 
@@ -86,8 +85,8 @@ export default class Engine {
     this.filter.uniforms.mouse.copyFrom(this.app.renderer.plugins.interaction.mouse.global);
     this.filter.uniforms.time = this.time;
 
-
-    this.log.innerHTML = `
+    this.log.innerHTML = '';
+    this.log.innerHTML += `
       ${this.controller.up ? 'up' : ''}
       ${this.controller.down ? 'down' : ''}
       ${this.controller.left ? 'left' : ''}

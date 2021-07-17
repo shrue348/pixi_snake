@@ -59,48 +59,48 @@ export default class GameScene extends Scene {
     this.leftBtn = new Button({
       texture: this.app.loader.resources['button_round'].texture,
       textureClick: this.app.loader.resources['button_click_round'].texture,
-      x: 145,
-      y: 1430,
-      width: 256,
-      height: 256,
+      x: 370,
+      y: 1420,
+      width: 190,
+      height: 190,
       controller: 'left',
-      text: 'Влево',
+      text: '←',
     });
     this.addChild(this.leftBtn);
 
     this.rightBtn = new Button({
       texture: this.app.loader.resources['button_round'].texture,
       textureClick: this.app.loader.resources['button_click_round'].texture,
-      x: 410,
-      y: 1430,
-      width: 256,
-      height: 256,
+      x: 710,
+      y: 1420,
+      width: 190,
+      height: 190,
       controller: 'right',
-      text: 'Вправо',
+      text: '→',
     });
     this.addChild(this.rightBtn);
 
     this.downBtn = new Button({
       texture: this.app.loader.resources['button_round'].texture,
       textureClick: this.app.loader.resources['button_click_round'].texture,
-      x: 675,
-      y: 1430,
-      width: 256,
-      height: 256,
+      x: this.app.screen.width / 2,
+      y: 1530,
+      width: 190,
+      height: 190,
       controller: 'down',
-      text: 'Вниз',
+      text: '↓',
     });
     this.addChild(this.downBtn);
 
     this.upBtn = new Button({
       texture: this.app.loader.resources['button_round'].texture,
       textureClick: this.app.loader.resources['button_click_round'].texture,
-      x: 940,
-      y: 1430,
-      width: 256,
-      height: 256,
+      x: this.app.screen.width / 2,
+      y: 1310,
+      width: 190,
+      height: 190,
       controller: 'up',
-      text: 'Вверх',
+      text: '↑',
     });
     this.addChild(this.upBtn);
 
@@ -132,11 +132,12 @@ export default class GameScene extends Scene {
     this.rightBtn.visible = false;
     this.upBtn.visible = false;
     this.downBtn.visible = false;
-    
     this.game.gameOver();
   }
 
   public update(delta: number): void {
 
+
+    
   }
 }
